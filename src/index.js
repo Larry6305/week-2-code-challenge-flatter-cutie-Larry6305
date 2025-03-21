@@ -56,3 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Handle form submission to update the votes
   votesForm.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    // Get the current character ID and current votes
+    const characterId = votesForm.dataset.characterId;
+    let currentVotes = parseInt(votesForm.dataset.characterVotes, 10);
+    const addedVotes = parseInt(voteInput.value, 10);
