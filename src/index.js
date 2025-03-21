@@ -74,4 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
      // Update the votes display in detailed-info
      const votesDisplay = detailedInfo.querySelector("p");
      votesDisplay.textContent = `Votes: ${currentVotes}`;
+
+     // Update the form data with new votes count
+    votesForm.dataset.characterVotes = currentVotes;
  
