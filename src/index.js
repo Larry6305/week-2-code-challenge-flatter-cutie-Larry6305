@@ -77,4 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
      // Update the form data with new votes count
     votesForm.dataset.characterVotes = currentVotes;
+
+      // Clear the vote input field
+      voteInput.value = "";
+    });
+  });
  
