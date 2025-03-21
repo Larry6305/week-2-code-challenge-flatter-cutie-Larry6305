@@ -27,3 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })
   .catch((error) => console.error("Error fetching characters:", error));
+
+   // Function to show character details in the detailed-info div
+   function showCharacterDetails(character) {
+    // Clear the previous detailed info
+    detailedInfo.innerHTML = "";
