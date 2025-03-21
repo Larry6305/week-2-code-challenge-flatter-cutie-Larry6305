@@ -32,3 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
    function showCharacterDetails(character) {
     // Clear the previous detailed info
     detailedInfo.innerHTML = "";
+
+      // Create the details display
+      const name = document.createElement("h2");
+      name.textContent = character.name;
+      const image = document.createElement("img");
+      image.src = character.image;
+      image.alt = character.name;
+      image.width = 200;
+      const votes = document.createElement("p");
+      votes.textContent = `Votes: ${character.votes}`;
