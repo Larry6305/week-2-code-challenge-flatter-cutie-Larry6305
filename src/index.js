@@ -52,3 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       votesForm.dataset.characterId = character.id;
       votesForm.dataset.characterVotes = character.votes;
     }
+
+    // Handle form submission to update the votes
+  votesForm.addEventListener("submit", (event) => {
+    event.preventDefault();
