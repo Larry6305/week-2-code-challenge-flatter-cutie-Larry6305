@@ -21,3 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add an event listener to show detailed information when clicked
     span.addEventListener("click", () => showCharacterDetails(character));
+
+     // Append to the character-bar
+     characterBar.appendChild(span);
+    });
+  })
+  .catch((error) => console.error("Error fetching characters:", error));
