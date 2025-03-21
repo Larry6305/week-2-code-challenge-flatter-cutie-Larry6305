@@ -47,3 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
     detailedInfo.appendChild(name);
     detailedInfo.appendChild(image);
     detailedInfo.appendChild(votes);
+
+      // Store the character data in the form to use later
+      votesForm.dataset.characterId = character.id;
+      votesForm.dataset.characterVotes = character.votes;
+    }
