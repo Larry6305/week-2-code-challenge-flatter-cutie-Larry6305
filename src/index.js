@@ -61,3 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const characterId = votesForm.dataset.characterId;
     let currentVotes = parseInt(votesForm.dataset.characterVotes, 10);
     const addedVotes = parseInt(voteInput.value, 10);
+
+     // Ensure the votes input is a valid number
+     if (isNaN(addedVotes) || addedVotes < 0) {
+        alert("Please enter a valid number of votes.");
+        return;
+      }
