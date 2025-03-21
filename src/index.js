@@ -1,39 +1,42 @@
-// Wait until the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-    // Elements from the DOM
     const characterBar = document.getElementById("character-bar");
     const detailedInfo = document.getElementById("detailed-info");
     const votesForm = document.getElementById("votes-form");
     const voteInput = document.getElementById("vote-input");
+    const resetVotesButton = document.getElementById("reset-votes");
+    const characterForm = document.getElementById("character-form");
+    const characterNameInput = document.getElementById("character-name");
+    const characterImageInput = document.getElementById("character-image");
   
-    // Base URL for API
     const baseUrl = "http://localhost:3000";
-
-    // Fetch character data and display character names
-  fetch(`${baseUrl}/characters`)
-  .then((response) => response.json())
-  .then((characters) => {
-    characters.forEach((character) => {
-   // Create a span element for each character's name
-   const span = document.createElement("span");
-   span.textContent = character.name;
-   span.classList.add("character-name");
-
-    // Add an event listener to show detailed information when clicked
-    span.addEventListener("click", () => showCharacterDetails(character));
-
-     // Append to the character-bar
-     characterBar.appendChild(span);
-    });
-  })
-  .catch((error) => console.error("Error fetching characters:", error));
-
-   // Function to show character details in the detailed-info div
-   function showCharacterDetails(character) {
-    // Clear the previous detailed info
-    detailedInfo.innerHTML = "";
-
-      // Create the details display
+  
+    // Fetch initial character data
+    fetch(`${baseUrl}/characters`)
+      .then((response) => response.json())
+      .then((characters) => {
+        characters.forEach((character) => {
+          createCharacterSpan(character);
+        });
+      })
+      .catch((error) => console.error("Error fetching characters:", error));
+  
+    // Function to create a span for a character
+    function createCharacterSpan(character) {
+      const span = document.createElement("span");
+      span.textContent = character.name;
+      span.classList.add("character-name");
+  
+      // Add click event to show character details
+      span.addEventListener("click", () => showCharacterDetails(character));
+  
+      // Append to the character bar
+      characterBar.appendChild(span);
+    }
+  
+    // Function to show character details
+    function showCharacterDetails(character) {
+      detailedInfo.innerHTML = "";
+  
       const name = document.createElement("h2");
       name.textContent = character.name;
       const image = document.createElement("img");
@@ -42,44 +45,77 @@ document.addEventListener("DOMContentLoaded", () => {
       image.width = 200;
       const votes = document.createElement("p");
       votes.textContent = `Votes: ${character.votes}`;
-
-        // Append character details to detailed-info
-    detailedInfo.appendChild(name);
-    detailedInfo.appendChild(image);
-    detailedInfo.appendChild(votes);
-
-      // Store the character data in the form to use later
+  
+      detailedInfo.appendChild(name);
+      detailedInfo.appendChild(image);
+      detailedInfo.appendChild(votes);
+  
+      // Store the current character ID and votes for later use
       votesForm.dataset.characterId = character.id;
       votesForm.dataset.characterVotes = character.votes;
     }
-
-    // Handle form submission to update the votes
-  votesForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    // Get the current character ID and current votes
-    const characterId = votesForm.dataset.characterId;
-    let currentVotes = parseInt(votesForm.dataset.characterVotes, 10);
-    const addedVotes = parseInt(voteInput.value, 10);
-
-     // Ensure the votes input is a valid number
-     if (isNaN(addedVotes) || addedVotes < 0) {
+  
+    // Handle the vote form submission to update votes
+    votesForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+  
+      const characterId = votesForm.dataset.characterId;
+      let currentVotes = parseInt(votesForm.dataset.characterVotes, 10);
+      const addedVotes = parseInt(voteInput.value, 10);
+  
+      if (isNaN(addedVotes) || addedVotes < 0) {
         alert("Please enter a valid number of votes.");
         return;
       }
-
-       // Update the total votes
-    currentVotes += addedVotes;
-
-     // Update the votes display in detailed-info
-     const votesDisplay = detailedInfo.querySelector("p");
-     votesDisplay.textContent = `Votes: ${currentVotes}`;
-
-     // Update the form data with new votes count
-    votesForm.dataset.characterVotes = currentVotes;
-
-      // Clear the vote input field
-      voteInput.value = "";
+  
+      currentVotes += addedVotes;
+  
+      const votesDisplay = detailedInfo.querySelector("p");
+      votesDisplay.textContent = `Votes: ${currentVotes}`;
+  
+      votesForm.dataset.characterVotes = currentVotes;
+  
+      voteInput.value = ""; // Clear the input after submission
+    });
+  
+    // Reset votes to 0 when the Reset Votes button is clicked
+    resetVotesButton.addEventListener("click", () => {
+      const characterId = votesForm.dataset.characterId;
+      const votesDisplay = detailedInfo.querySelector("p");
+  
+      // Reset votes in the UI
+      votesDisplay.textContent = "Votes: 0";
+  
+      // Reset the votes in the form's dataset
+      votesForm.dataset.characterVotes = 0;
+    });
+  
+    // Add a new character when the form is submitted
+    characterForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+  
+      const name = characterNameInput.value;
+      const image = characterImageInput.value;
+  
+      if (!name || !image) {
+        alert("Please provide a name and image URL for the new character.");
+        return;
+      }
+  
+      const newCharacter = {
+        name,
+        image,
+        votes: 0,
+      };
+  
+      // Create the new character's span element and add it to the character bar
+      createCharacterSpan(newCharacter);
+  
+      // Show the new character's details immediately
+      showCharacterDetails(newCharacter);
+  
+      // Reset the form inputs
+      characterForm.reset();
     });
   });
- 
+  
