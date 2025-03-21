@@ -8,4 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Base URL for API
     const baseUrl = "http://localhost:3000";
+
+    // Fetch character data and display character names
+  fetch(`${baseUrl}/characters`)
+  .then((response) => response.json())
+  .then((characters) => {
+    characters.forEach((character) => {
   
