@@ -67,3 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Please enter a valid number of votes.");
         return;
       }
+
+       // Update the total votes
+    currentVotes += addedVotes;
