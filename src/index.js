@@ -70,3 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
        // Update the total votes
     currentVotes += addedVotes;
+
+     // Update the votes display in detailed-info
+     const votesDisplay = detailedInfo.querySelector("p");
+     votesDisplay.textContent = `Votes: ${currentVotes}`;
+ 
