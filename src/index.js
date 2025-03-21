@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const baseUrl = "http://localhost:3000";
   
-    // Fetch initial character data
     fetch(`${baseUrl}/characters`)
       .then((response) => response.json())
       .then((characters) => {
@@ -20,20 +19,16 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((error) => console.error("Error fetching characters:", error));
   
-    // Function to create a span for a character
     function createCharacterSpan(character) {
       const span = document.createElement("span");
       span.textContent = character.name;
       span.classList.add("character-name");
   
-      // Add click event to show character details
       span.addEventListener("click", () => showCharacterDetails(character));
   
-      // Append to the character bar
       characterBar.appendChild(span);
     }
   
-    // Function to show character details
     function showCharacterDetails(character) {
       detailedInfo.innerHTML = "";
   
@@ -50,12 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
       detailedInfo.appendChild(image);
       detailedInfo.appendChild(votes);
   
-      // Store the current character ID and votes for later use
       votesForm.dataset.characterId = character.id;
       votesForm.dataset.characterVotes = character.votes;
     }
   
-    // Handle the vote form submission to update votes
     votesForm.addEventListener("submit", (event) => {
       event.preventDefault();
   
@@ -75,22 +68,18 @@ document.addEventListener("DOMContentLoaded", () => {
   
       votesForm.dataset.characterVotes = currentVotes;
   
-      voteInput.value = ""; // Clear the input after submission
+      voteInput.value = ""; 
     });
   
-    // Reset votes to 0 when the Reset Votes button is clicked
     resetVotesButton.addEventListener("click", () => {
       const characterId = votesForm.dataset.characterId;
       const votesDisplay = detailedInfo.querySelector("p");
   
-      // Reset votes in the UI
       votesDisplay.textContent = "Votes: 0";
   
-      // Reset the votes in the form's dataset
       votesForm.dataset.characterVotes = 0;
     });
   
-    // Add a new character when the form is submitted
     characterForm.addEventListener("submit", (event) => {
       event.preventDefault();
   
@@ -108,13 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
         votes: 0,
       };
   
-      // Create the new character's span element and add it to the character bar
       createCharacterSpan(newCharacter);
   
-      // Show the new character's details immediately
       showCharacterDetails(newCharacter);
   
-      // Reset the form inputs
       characterForm.reset();
     });
   });
