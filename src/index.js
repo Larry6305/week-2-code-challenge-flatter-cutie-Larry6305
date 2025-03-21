@@ -18,3 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
    const span = document.createElement("span");
    span.textContent = character.name;
    span.classList.add("character-name");
+
+    // Add an event listener to show detailed information when clicked
+    span.addEventListener("click", () => showCharacterDetails(character));
