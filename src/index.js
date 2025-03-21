@@ -14,4 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   .then((response) => response.json())
   .then((characters) => {
     characters.forEach((character) => {
-  
+   // Create a span element for each character's name
+   const span = document.createElement("span");
+   span.textContent = character.name;
+   span.classList.add("character-name");
