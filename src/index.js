@@ -42,3 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
       image.width = 200;
       const votes = document.createElement("p");
       votes.textContent = `Votes: ${character.votes}`;
+
+        // Append character details to detailed-info
+    detailedInfo.appendChild(name);
+    detailedInfo.appendChild(image);
+    detailedInfo.appendChild(votes);
